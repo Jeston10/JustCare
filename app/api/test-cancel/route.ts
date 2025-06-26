@@ -55,7 +55,7 @@ export async function POST() {
     return NextResponse.json({
       success: true,
       originalAppointment: newAppointment,
-      cancelledAppointment: cancelledAppointment
+      cancelledAppointment
     });
   } catch (error) {
     console.error("Test cancellation failed:", error);

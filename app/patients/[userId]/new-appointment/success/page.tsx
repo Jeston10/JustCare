@@ -44,7 +44,7 @@ const RequestSuccess = async ({
                   height={200}
                   width={200}
                   alt="Success animation"
-                  className="h-48 w-48 object-contain"
+                  className="object-contain size-48"
                 />
                 <div className="absolute inset-0 rounded-full bg-green-500/10 animate-pulse" />
               </div>
@@ -56,7 +56,7 @@ const RequestSuccess = async ({
                 Appointment Request Submitted!
               </h1>
               <p className="text-lg text-muted-foreground">
-                Your appointment request has been successfully submitted. We'll be in touch shortly to confirm your appointment.
+                Your appointment request has been successfully submitted. We&apos;ll be in touch shortly to confirm your appointment.
               </p>
             </div>
 

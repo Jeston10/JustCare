@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import {
   DATABASE_ID,
   APPOINTMENT_COLLECTION_ID,

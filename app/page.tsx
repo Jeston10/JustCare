@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import ChatBot from "@/components/ChatBot";
 import { PatientForm } from "@/components/forms/PatientForm";
 import { PasskeyModal } from "@/components/PasskeyModal";
 import QuoteSection from "@/components/QuoteSection";
-import ChatBot from "@/components/ChatBot";
 
 const Home = ({ searchParams }: SearchParamProps) => {
   const isAdmin = searchParams?.admin === "true";

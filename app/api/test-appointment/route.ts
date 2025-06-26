@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ID } from "node-appwrite";
+
 import {
   DATABASE_ID,
   APPOINTMENT_COLLECTION_ID,

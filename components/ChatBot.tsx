@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { MessageCircle, X } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 
 const BOT_AVATAR = "/assets/icons/logo-icon.svg";
 const USER_AVATAR = "/assets/icons/user.svg";

@@ -14,7 +14,7 @@ export const columns: ColumnDef<Appointment>[] = [
   {
     header: "#",
     cell: ({ row }) => {
-      return <p className="text-14-medium ">{row.index + 1}</p>;
+      return <p className="text-base font-medium">{row.index + 1}</p>;
     },
   },
   {
@@ -23,9 +23,9 @@ export const columns: ColumnDef<Appointment>[] = [
     cell: ({ row }) => {
       const appointment = row.original;
       if (!appointment.patients || typeof appointment.patients === 'string') {
-        return <p className="text-14-medium text-gray-500">Loading...</p>;
+        return <p className="text-base font-medium text-gray-500">Loading...</p>;
       }
-      return <p className="text-14-medium ">{(appointment.patients as Patient).name}</p>;
+      return <p className="text-base font-medium ">{(appointment.patients as Patient).name}</p>;
     },
   },
   {
@@ -46,7 +46,7 @@ export const columns: ColumnDef<Appointment>[] = [
     cell: ({ row }) => {
       const appointment = row.original;
       return (
-        <p className="text-14-regular min-w-[100px]">
+        <p className="text-base font-normal min-w-[100px]">
           {formatDateTime(appointment.schedule).dateTime}
         </p>
       );

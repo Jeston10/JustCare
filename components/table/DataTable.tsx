@@ -102,7 +102,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="shad-gray-btn"
+          className="bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gray-200"
         >
           <Image
             src="/assets/icons/arrow.svg"
@@ -116,7 +116,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="shad-gray-btn"
+          className="bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gray-200"
         >
           <Image
             src="/assets/icons/arrow.svg"
