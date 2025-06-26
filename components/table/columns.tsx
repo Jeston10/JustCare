@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Doctors } from "@/constants";
 import { formatDateTime } from "@/lib/utils";
-import { Appointment } from "@/types/appwrite.types";
+import { Appointment, Patient } from "@/types/appwrite.types";
 
 import { AppointmentModal } from "../AppointmentModal";
 import { StatusBadge } from "../StatusBadge";
@@ -18,11 +18,14 @@ export const columns: ColumnDef<Appointment>[] = [
     },
   },
   {
-    accessorKey: "patient",
+    accessorKey: "patients",
     header: "Patient",
     cell: ({ row }) => {
       const appointment = row.original;
-      return <p className="text-14-medium ">{appointment.patient.name}</p>;
+      if (!appointment.patients || typeof appointment.patients === 'string') {
+        return <p className="text-14-medium text-gray-500">Loading...</p>;
+      }
+      return <p className="text-14-medium ">{(appointment.patients as Patient).name}</p>;
     },
   },
   {
@@ -79,10 +82,16 @@ export const columns: ColumnDef<Appointment>[] = [
     cell: ({ row }) => {
       const appointment = row.original;
 
+      if (!appointment.patients || typeof appointment.patients === 'string') {
+        return <div className="flex gap-1">
+          <button disabled className="text-gray-400">Loading...</button>
+        </div>;
+      }
+
       return (
         <div className="flex gap-1">
           <AppointmentModal
-            patientId={appointment.patient.$id}
+            patientId={(appointment.patients as Patient).$id}
             userId={appointment.userId}
             appointment={appointment}
             type="schedule"
@@ -90,7 +99,7 @@ export const columns: ColumnDef<Appointment>[] = [
             description="Please confirm the following details to schedule."
           />
           <AppointmentModal
-            patientId={appointment.patient.$id}
+            patientId={(appointment.patients as Patient).$id}
             userId={appointment.userId}
             appointment={appointment}
             type="cancel"

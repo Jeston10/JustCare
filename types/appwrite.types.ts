@@ -6,11 +6,11 @@ export interface Patient extends Models.Document {
   email: string;
   phone: string;
   birthDate: Date;
-  gender: Gender;
+  gender: string;
   address: string;
   occupation: string;
   emergencyContactName: string;
-  emergencyContactNumber: string;
+  emergencyContactnumber: string;
   primaryPhysician: string;
   insuranceProvider: string;
   insurancePolicyNumber: string;
@@ -25,7 +25,7 @@ export interface Patient extends Models.Document {
 }
 
 export interface Appointment extends Models.Document {
-  patient: Patient;
+  patients: string | Patient;
   schedule: Date;
   status: Status;
   primaryPhysician: string;

@@ -46,21 +46,23 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
   switch (props.fieldType) {
     case FormFieldType.INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+        <div className="flex items-center rounded-md border border-input bg-background">
           {props.iconSrc && (
-            <Image
-              src={props.iconSrc}
-              height={24}
-              width={24}
-              alt={props.iconAlt || "icon"}
-              className="ml-2"
-            />
+            <div className="flex items-center justify-center w-10 h-10">
+              <Image
+                src={props.iconSrc}
+                height={20}
+                width={20}
+                alt={props.iconAlt || "icon"}
+                className="h-5 w-5 text-muted-foreground"
+              />
+            </div>
           )}
           <FormControl>
             <Input
               placeholder={props.placeholder}
               {...field}
-              className="shad-input border-0"
+              className="shad-input border-0 bg-transparent pl-0"
             />
           </FormControl>
         </div>
@@ -107,14 +109,16 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.DATE_PICKER:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          <Image
-            src="/assets/icons/calendar.svg"
-            height={24}
-            width={24}
-            alt="user"
-            className="ml-2"
-          />
+        <div className="flex items-center rounded-md border border-input bg-background">
+          <div className="flex items-center justify-center w-10 h-10">
+            <Image
+              src="/assets/icons/calendar.svg"
+              height={20}
+              width={20}
+              alt="calendar"
+              className="h-5 w-5 text-muted-foreground"
+            />
+          </div>
           <FormControl>
             <ReactDatePicker
               showTimeSelect={props.showTimeSelect ?? false}

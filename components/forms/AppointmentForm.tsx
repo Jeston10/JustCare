@@ -61,10 +61,10 @@ export const AppointmentForm = ({
     let status;
     switch (type) {
       case "schedule":
-        status = "scheduled";
+        status = "schedule";
         break;
       case "cancel":
-        status = "cancelled";
+        status = "canceled";
         break;
       default:
         status = "pending";
@@ -72,15 +72,23 @@ export const AppointmentForm = ({
 
     try {
       if (type === "create" && patientId) {
+        console.log("Patient ID for appointment:", patientId);
+        
+        if (!patientId || patientId.trim() === "") {
+          throw new Error("Invalid patient ID");
+        }
+        
         const appointment = {
-          userId,
-          patient: patientId,
-          primaryPhysician: values.primaryPhysician,
-          schedule: new Date(values.schedule),
+          patients: patientId,
+          schedule: new Date(values.schedule).toISOString(),
           reason: values.reason!,
+          note: values.note || "",
+          primaryPhysician: values.primaryPhysician,
           status: status as Status,
-          note: values.note,
+          userId,
+          cancellationReason: values.cancellationReason || null,
         };
+        console.log("Creating appointment with payload:", appointment);
 
         const newAppointment = await createAppointment(appointment);
 
@@ -96,11 +104,12 @@ export const AppointmentForm = ({
           appointmentId: appointment?.$id!,
           appointment: {
             primaryPhysician: values.primaryPhysician,
-            schedule: new Date(values.schedule),
+            schedule: values.schedule ? new Date(values.schedule).toISOString() : "",
             status: status as Status,
-            cancellationReason: values.cancellationReason,
+            cancellationReason: values.cancellationReason || null,
           },
           type,
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
 
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
@@ -125,7 +134,7 @@ export const AppointmentForm = ({
       buttonLabel = "Schedule Appointment";
       break;
     default:
-      buttonLabel = "Submit Apppointment";
+      buttonLabel = "Submit Appointment";
   }
 
   return (

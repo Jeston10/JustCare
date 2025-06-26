@@ -4,6 +4,8 @@ import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
 import { cn } from "@/lib/utils";
+import JustCareTrademark from "@/components/JustCareTrademark";
+import LiveDateTimeButton from "@/components/LiveDateTimeButton";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -12,11 +14,10 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "CarePulse",
-  description:
-    "A healthcare patient management System designed to streamline patient registration, appointment scheduling, and medical records management for healthcare providers.",
+  title: "JustCare",
+  description: "Healthcare appointment management system",
   icons: {
-    icon: "/assets/icons/logo-icon.svg",
+    icon: "/favicon.ico",
   },
 };
 
@@ -26,16 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-dark-300 font-sans antialiased",
           fontSans.variable
         )}
+        suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <LiveDateTimeButton />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>
+        <JustCareTrademark />
       </body>
     </html>
   );
