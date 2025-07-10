@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import { Button } from "@/components/ui/button";
 import { getPatient } from "@/lib/actions/patient.actions";
+import { NewsSection } from "@/components/NewsSection";
 
 const Appointment = async ({ params: { userId } }: SearchParamProps) => {
   const patient = await getPatient(userId);
@@ -80,6 +81,9 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
               </Link>
             </Button>
           </div>
+
+          {/* News Section */}
+          <NewsSection />
 
           {/* Appointment Form Card */}
           <div className="rounded-xl border border-border/50 bg-card/50 p-6 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/30 sm:p-8">
