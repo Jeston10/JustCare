@@ -29,8 +29,8 @@ export const NewsSection: React.FC = () => {
         const res = await fetch(
           `/api/medical-news?page=${page}&pageSize=${PAGE_SIZE}`
         );
-        if (!res.ok) throw new Error("Failed to fetch news");
         const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || "Failed to fetch news");
         setArticles(data.articles);
         setTotalResults(data.totalResults);
       } catch (err: any) {

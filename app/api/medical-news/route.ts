@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const page = searchParams.get("page") || "1";
@@ -10,12 +12,22 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing NEWS_API_KEY" }, { status: 500 });
   }
 
-  const url = `https://newsapi.org/v2/top-headlines?category=health&language=en&pageSize=${pageSize}&page=${page}&apiKey=${apiKey}`;
+  const url = `https://newsapi.org/v2/top-headlines?category=health&language=en&pageSize=${pageSize}&page=${page}`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      headers: {
+        "X-Api-Key": apiKey,
+      },
+      // Cache briefly to reduce rate limits; adjust as needed
+      next: { revalidate: 900 },
+    });
     if (!res.ok) {
-      return NextResponse.json({ error: "Failed to fetch news" }, { status: 500 });
+      const text = await res.text();
+      return NextResponse.json(
+        { error: "Failed to fetch news", details: text },
+        { status: 500 }
+      );
     }
     const data = await res.json();
     return NextResponse.json({
@@ -23,6 +35,9 @@ export async function GET(req: NextRequest) {
       totalResults: data.totalResults,
     });
   } catch (error) {
-    return NextResponse.json({ error: "Error fetching news" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Error fetching news", details: (error as Error).message },
+      { status: 500 }
+    );
   }
 } 
